@@ -57,7 +57,7 @@ contract SushiBar is ERC20("SushiBar", "xSUSHI") {
         uint256 tax = 0;
 
         if (timeDiff < 2 days) {
-            require(false, "You can't unstake now. please try again later");
+            require(false, "You can't unstake now. your sushi is still locked. please try again later after two days");
         } else if (timeDiff < 4 days) {
             tax = (what * 75) / 100;
             what -= tax;
@@ -74,7 +74,7 @@ contract SushiBar is ERC20("SushiBar", "xSUSHI") {
 
         _burn(msg.sender, _share);
         sushi.transfer(msg.sender, what);
-        
+
         // sendTokenToRewardPool
         if (tax > 0) {
             sushi.transfer(rewardPoolAddress, tax);
